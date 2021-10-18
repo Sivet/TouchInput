@@ -2,8 +2,5 @@
 
 Event::Event()
 {
-    std::cout << "Temp" << std::endl;
-}
-Event::~Event()
-{
+    std::cout << "Base Event" << std::endl;
 }

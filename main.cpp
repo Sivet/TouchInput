@@ -1,7 +1,10 @@
 #include "Event.h"
+#include "LiftEvent.h"
+#include "PressEvent.h"
 #include <chrono>
 #include <fstream>
 #include <iostream>
+#include <linux/input.h>
 #include <thread>
 
 int main()
@@ -13,7 +16,21 @@ int main()
     touchDriver.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     touchDriver.open("/dev/input/event1", std::ifstream::binary);
 
-    Event event;
+    InputEvent input;
+    touchDriver.read(reinterpret_cast<char *>(&input), sizeof(input));
+
+    //THOUGHT: Have list of "active" presses, clear them all on a lift
+
+    if (input.code == EV_ABS && input.type == ABS_MT_TRACKING_ID && input.value == 0) {
+        std::cout << "New Press" << std::endl;
+        PressEvent press(touchDriver);
+    }
+    if (input.code == EV_ABS && input.type == ABS_MT_TRACKING_ID && input.value == 0xFFFFFFFF) {
+        std::cout << "New Lift" << std::endl;
+        LiftEvent lift(touchDriver);
+    }
+
+    /*Event event;
     InputEvent input;
     while (true) {
         while (touchDriver.peek() != EOF) {
@@ -35,7 +52,11 @@ int main()
             event.inputs.clear();
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    }
+    }*/
 
+    touchDriver.close();
     return 0;
+}
+void PrintEvent(Event &event)
+{
 }

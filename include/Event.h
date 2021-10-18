@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include <vector>
 
 struct InputEvent {
     struct timeval time;
@@ -13,8 +12,5 @@ struct InputEvent {
 class Event
 {
   public:
-    std::vector<InputEvent> inputs;
-
     Event();
-    ~Event();
 };
