@@ -8,7 +8,7 @@ PressEvent::PressEvent(std::ifstream &stream)
 {
     std::cout << "Press" << std::endl;
     stream.read(reinterpret_cast<char *>(&input), sizeof(input));
-    while (input.type != 0 && input.value != 0) {
+    while (input.type != 0 || input.value != 0) {
         if (input.type == EV_ABS && input.code == ABS_X) {
             x = input.value;
         }
