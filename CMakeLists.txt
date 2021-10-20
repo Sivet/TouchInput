@@ -9,7 +9,8 @@ project (inputHandling VERSION 1.0)
 
 add_executable(inputHandling 
             main.cpp
-            Event.cpp)
+            PressEvent.cpp
+            LiftEvent.cpp)
 
 target_include_directories(inputHandling 
             PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)

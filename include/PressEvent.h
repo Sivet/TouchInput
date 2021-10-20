@@ -1,13 +1,16 @@
 #pragma once
 
 #include "Event.h"
+//#include <fstream>
+//#include <iostream>
 
 class PressEvent : public Event
 {
   public:
-    uint16_t x;
-    uint16_t y;
+    uint32_t x;
+    uint32_t y;
 
+    PressEvent();
     PressEvent(std::ifstream &stream);
-    ~PressEvent();
+    void Read(std::ifstream &stream);
 };

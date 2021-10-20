@@ -1,6 +1,8 @@
 #pragma once
 
+#include <fstream>
 #include <iostream>
+#include <linux/input.h>
 
 struct InputEvent {
     struct timeval time;
@@ -12,5 +14,5 @@ struct InputEvent {
 class Event
 {
   public:
-    Event();
+    InputEvent input;
 };
