@@ -1,4 +1,5 @@
 //#include "Event.h"
+#include "DragEvent.h"
 #include "LiftEvent.h"
 #include "PressEvent.h"
 #include <chrono>
@@ -16,6 +17,7 @@ int main()
     touchDriver.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     touchDriver.open("/dev/input/event1", std::ifstream::binary);
 
+    Activity activity;
     InputEvent initInput;
 
     //THOUGHT: Have list of "active" presses, clear them all on a lift
@@ -27,10 +29,14 @@ int main()
             touchDriver.read(reinterpret_cast<char *>(&initInput), sizeof(initInput));
             if (initInput.type == EV_ABS && initInput.code == ABS_MT_TRACKING_ID && initInput.value == 0xFFFFFFFF) {
                 std::cout << "New Lift" << std::endl;
-                LiftEvent lift(touchDriver);
+                activity.Handle(LiftEvent(touchDriver));
             } else if (initInput.type == EV_ABS && initInput.code == ABS_MT_TRACKING_ID) {
                 std::cout << "New Press" << std::endl;
-                PressEvent press(touchDriver);
+                activity.Handle(PressEvent(touchDriver));
+            } else if (initInput.type == EV_ABS &&
+                       (initInput.code == ABS_MT_POSITION_X || initInput.code == ABS_MT_POSITION_Y)) {
+                std::cout << "New Drag" << std::endl;
+                activity.Handle(DragEvent(touchDriver));
             }
 
         } else {

@@ -2,12 +2,13 @@
 
 #include "Event.h"
 
-class PressEvent : public Event
+class DragEvent : public Event
 {
   public:
     uint32_t x;
     uint32_t y;
 
-    PressEvent(std::ifstream &stream);
+    DragEvent();
+    DragEvent(std::ifstream &stream);
     void UpdateActivity(Activity &activity) const;
 };

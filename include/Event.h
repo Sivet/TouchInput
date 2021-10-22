@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Activity.h"
+
 #include <fstream>
 #include <iostream>
 #include <linux/input.h>
@@ -15,4 +17,10 @@ class Event
 {
   public:
     InputEvent input;
+
+    virtual ~Event()
+    {
+    }
+
+    virtual void UpdateActivity(Activity &activity) const = 0;
 };
