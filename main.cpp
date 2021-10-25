@@ -20,8 +20,6 @@ int main()
     Activity activity;
     InputEvent initInput;
 
-    //THOUGHT: Have list of "active" presses, clear them all on a lift
-
     while (true) {
         std::cout << "Checking.." << std::endl;
         //Read
@@ -43,7 +41,6 @@ int main()
             std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
     }
-
     touchDriver.close();
     return 0;
 }

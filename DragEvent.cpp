@@ -16,5 +16,11 @@ DragEvent::DragEvent(std::ifstream &stream)
 }
 void DragEvent::UpdateActivity(Activity &activity) const
 {
-    activity.SetCoords(x, y);
+    if (x == 0) {
+        activity.SetCoords(activity.GetCoords()[0], y);
+    } else if (y == 0) {
+        activity.SetCoords(x, activity.GetCoords()[1]);
+    } else {
+        activity.SetCoords(x, y);
+    }
 }
