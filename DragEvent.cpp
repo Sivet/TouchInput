@@ -12,7 +12,6 @@ DragEvent::DragEvent(std::ifstream &stream)
         }
         stream.read(reinterpret_cast<char *>(&input), sizeof(input));
     }
-    //std::cout << "X: " << x << " Y:" << y << std::endl;
 }
 void DragEvent::UpdateActivity(Activity &activity) const
 {
