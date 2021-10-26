@@ -1,26 +1,32 @@
 #pragma once
 
-#include "Activity.h"
-
-#include <fstream>
 #include <iostream>
 #include <linux/input.h>
 
-struct InputEvent {
+struct EventInput {
     struct timeval time;
     uint16_t type;
     uint16_t code;
     uint32_t value;
 } __attribute__((packed));
 
+enum class eventType {
+    Press,
+    Drag,
+    Lift
+};
+
 class Event
 {
   public:
-    InputEvent input;
+    eventType type;
+    uint32_t x;
+    uint32_t y;
 
-    virtual ~Event()
+    Event()
     {
     }
-
-    virtual void UpdateActivity(Activity &activity) const = 0;
+    ~Event()
+    {
+    }
 };
