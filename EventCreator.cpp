@@ -21,32 +21,30 @@ bool EventCreator::HasNewEvents()
     return true;
 }
 
-Event EventCreator::GetEvent()
+const Event &EventCreator::GetEvent()
 {
-    Event newEvent;
+    ReadType();
+    ReadBody();
 
-    ReadType(newEvent);
-    ReadBody(newEvent);
-
-    return newEvent;
+    return event;
 }
 
-void EventCreator::ReadType(Event &event)
+void EventCreator::ReadType()
 {
     touchDriver.read(reinterpret_cast<char *>(&eventInput), sizeof(eventInput));
     if (eventInput.type == EV_ABS && eventInput.code == ABS_MT_TRACKING_ID && eventInput.value == 0xFFFFFFFF) {
-        event.type = eventType::Lift;
+        event.type = EventType::Lift;
     } else if (eventInput.type == EV_ABS && eventInput.code == ABS_MT_TRACKING_ID) {
-        event.type = eventType::Press;
+        event.type = EventType::Press;
     } else if (eventInput.type == EV_ABS &&
                (eventInput.code == ABS_MT_POSITION_X || eventInput.code == ABS_MT_POSITION_Y)) {
-        event.type = eventType::Drag;
+        event.type = EventType::Drag;
     }
 }
 
-void EventCreator::ReadBody(Event &event)
+void EventCreator::ReadBody()
 {
-    while (eventInput.type != 0 || eventInput.value != 0) {
+    while (eventInput.type != 0) {
         if (eventInput.type == EV_ABS && eventInput.code == ABS_X) {
             event.x = eventInput.value;
         }

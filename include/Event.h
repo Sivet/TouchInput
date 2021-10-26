@@ -10,7 +10,7 @@ struct EventInput {
     uint32_t value;
 } __attribute__((packed));
 
-enum class eventType {
+enum class EventType {
     Press,
     Drag,
     Lift
@@ -19,12 +19,13 @@ enum class eventType {
 class Event
 {
   public:
-    eventType type;
-    uint32_t x;
-    uint32_t y;
+    EventType type;
+    uint32_t x = 0;
+    uint32_t y = 0;
 
     Event()
     {
+        std::cout << "Event Contructor" << std::endl;
     }
     ~Event()
     {

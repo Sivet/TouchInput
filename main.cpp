@@ -1,20 +1,20 @@
 #include "EventCreator.h"
-#include <iostream>
 
 #include <chrono>
+#include <iostream>
 #include <thread>
 
 void PrintEvent(Event event)
 {
-    if (event.type == eventType::Press) {
+    if (event.type == EventType::Press) {
         std::cout << "New Press" << std::endl;
         std::cout << "X: " << event.x << " Y: " << event.y << std::endl;
     }
-    if (event.type == eventType::Drag) {
+    if (event.type == EventType::Drag) {
         std::cout << "New Drag" << std::endl;
         std::cout << "X: " << event.x << " Y: " << event.y << std::endl;
     }
-    if (event.type == eventType::Lift) {
+    if (event.type == EventType::Lift) {
         std::cout << "New Lift" << std::endl;
     }
 }

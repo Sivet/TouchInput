@@ -8,13 +8,15 @@ class EventCreator
     std::ifstream touchDriver;
     EventInput eventInput;
 
-    void ReadType(Event &event);
-    void ReadBody(Event &event);
+    Event event;
+
+    void ReadType();
+    void ReadBody();
 
   public:
     EventCreator();
     ~EventCreator();
 
     bool HasNewEvents();
-    Event GetEvent();
+    const Event &GetEvent();
 };
