@@ -7,19 +7,37 @@
 
 using namespace rsp::graphics;
 
-static Rect rect(Point(1, 1), Point(2, 2));
+static Rect rect(Point(120, 200), Point(240, 400));
 
-bool isHit(const Point &aPoint, const Rect &aRect)
+bool isHitSimple(const Point &aPoint, const Rect &aRect)
 {
-    return true;
+    //Only works with non-rotated rectangles
+    if (aPoint.GetX() > aRect.GetTopLeft().GetX() and
+        aPoint.GetX() < aRect.GetBottomRight().GetX() and
+        aPoint.GetY() > aRect.GetTopLeft().GetY() and
+        aPoint.GetY() < aRect.GetBottomRight().GetY())
+        return true;
+
+    return false;
 }
+
+//bool isHitVector(const Point &aPoint, const Rect &aRect)
+//{
+//}
+//
+////Vector calc method here
+//
+//double dotProd(uint32_t u, uint32_t &aVevtor)
+//{
+//    return u.x * aVevtor.x + u.y * aVevtor.y;
+//}
 
 void PrintEvent(Event event)
 {
     if (event.type == EventType::Press) {
         std::cout << "New Press" << std::endl;
         std::cout << "X: " << event.x << " Y: " << event.y << std::endl;
-        bool hit = isHit(Point(event.x, event.y), rect);
+        bool hit = isHitSimple(Point(event.x, event.y), rect);
         std::cout << "Hit is: " << hit << std::endl;
     }
     if (event.type == EventType::Drag) {
