@@ -7,11 +7,11 @@
 
 using namespace rsp::graphics;
 
-static Rect rect(Point(120, 200), Point(240, 400));
+static Rect rect(Point(200, 10), Point(400, 750));
 
 bool isHitSimple(const Point &aPoint, const Rect &aRect)
 {
-    //Only works with non-rotated rectangles
+    // Only works with non-rotated rectangles
     if (aPoint.GetX() > aRect.GetTopLeft().GetX() and
         aPoint.GetX() < aRect.GetBottomRight().GetX() and
         aPoint.GetY() > aRect.GetTopLeft().GetY() and
@@ -20,17 +20,6 @@ bool isHitSimple(const Point &aPoint, const Rect &aRect)
 
     return false;
 }
-
-//bool isHitVector(const Point &aPoint, const Rect &aRect)
-//{
-//}
-//
-////Vector calc method here
-//
-//double dotProd(uint32_t u, uint32_t &aVevtor)
-//{
-//    return u.x * aVevtor.x + u.y * aVevtor.y;
-//}
 
 void PrintEvent(Event event)
 {
@@ -56,7 +45,7 @@ int main()
     EventCreator evtCreator;
     while (true) {
         std::cout << "Checking.." << std::endl;
-        //Check for input
+        // Check for input
         if (evtCreator.HasNewEvents()) {
             PrintEvent(evtCreator.GetEvent());
         } else {

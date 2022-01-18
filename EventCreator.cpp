@@ -24,7 +24,6 @@ bool EventCreator::HasNewEvents()
 const Event &EventCreator::GetEvent()
 {
     ReadType();
-    ReadBody();
 
     return event;
 }
@@ -32,7 +31,11 @@ const Event &EventCreator::GetEvent()
 void EventCreator::ReadType()
 {
     touchDriver.read(reinterpret_cast<char *>(&eventInput), sizeof(eventInput));
-    if (eventInput.type == EV_ABS && eventInput.code == ABS_MT_TRACKING_ID && eventInput.value == 0xFFFFFFFF) {
+    if (eventInput.type == EV_ABS && eventInput.code == 0x002f) {
+        touchDriver.read(reinterpret_cast<char *>(&eventInput), sizeof(eventInput));
+    }
+    if (eventInput.type == EV_ABS && eventInput.code == ABS_MT_TRACKING_ID &&
+        eventInput.value == 0xFFFFFFFF) {
         event.type = EventType::Lift;
     } else if (eventInput.type == EV_ABS && eventInput.code == ABS_MT_TRACKING_ID) {
         event.type = EventType::Press;
@@ -40,6 +43,7 @@ void EventCreator::ReadType()
                (eventInput.code == ABS_MT_POSITION_X || eventInput.code == ABS_MT_POSITION_Y)) {
         event.type = EventType::Drag;
     }
+    ReadBody();
 }
 
 void EventCreator::ReadBody()
